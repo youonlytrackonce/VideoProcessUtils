@@ -1,4 +1,4 @@
-import pafy
+#import pafy
 import cv2
 import time
 import os
@@ -7,9 +7,9 @@ from datetime import datetime
 import shutil
 import numpy as np
 
-video = '/home/ubuntu/phd/goldenSample/mot_anno/set2/cam12/cam12_2021-07-29,18_09_01.mp4'
-outdir = '/home/ubuntu/phd/goldenSample/mot_anno/set2/cam12/test/'
-annoTxt = open('/home/ubuntu/phd/goldenSample/mot_anno/set2/cam12/cam12_2021-07-29,18_09_01_result.txt', 'r')
+video = '/mnt/disk2/dataset/mot_anno/set0/cam1/raw_video/cam1_2021-07-06,13_00_05.mp4'
+outdir = '/mnt/disk2/dataset/mot_anno/set0/cam1/raw_video/test/'
+annoTxt = open('/home/fatih/phd/experiments/centernet_dla34_640x384_deepsort_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05.txt', 'r')
 
 lines = annoTxt.readlines()
 totalLine = len(lines)
