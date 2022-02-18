@@ -6,7 +6,7 @@ from datetime import datetime
 import shutil
 import numpy as np
 
-root_dir = '/home/ubuntu/phd/trackeveryseason/images/'
+root_dir = '/home/fatih/disk1/trackeveryseason/images/'
 
 splits = ['test', 'train']
 
@@ -15,17 +15,18 @@ for split in splits:
     seq_names = [s for s in sorted(os.listdir(data_path))]
     for seq in seq_names:
         anno_path = os.path.join(root_dir, split, seq, 'gt') + '/gt.txt'
-        img_path = os.path.join(root_dir, split, seq, 'img1') + '000001.jpg'
+        img_path = os.path.join(root_dir, split, seq, 'img1') + '/000001.jpg'
         img = cv2.imread(img_path)
         height, width, c = img.shape
         with open(anno_path, 'r') as fp:
             Lines = fp.readlines()
+        new_Lines = []
         for line in Lines:
             anno_str = line.split(',')
-            x1 = int(anno_str[2])
-            y1 = int(anno_str[3])
-            w = int(anno_str[4])
-            h = int(anno_str[5])
+            x1 = int(float(anno_str[2]))
+            y1 = int(float(anno_str[3]))
+            w = int(float(anno_str[4]))
+            h = int(float(anno_str[5]))
 
             x2 = x1 + w
             y2 = y1 + h
@@ -46,5 +47,8 @@ for split in splits:
             anno_str[3] = str(y1)
             anno_str[4] = str(w)
             anno_str[5] = str(h)
-
+            new_line = ','.join(anno_str)
+            new_Lines.append(new_line)
+        with open(anno_path, 'w') as fp:
+            fp.writelines(new_Lines)
 
