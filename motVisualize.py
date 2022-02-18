@@ -6,9 +6,14 @@ from datetime import datetime
 import shutil
 import numpy as np
 
-video = '/mnt/disk2/dataset/trackeveryseason/cam1/raw_video/cam1_2021-07-06,13_00_05.mp4'
-outdir = '/mnt/disk2/dataset/trackeveryseason/cam1/traj_visualize/'
-annoTxt = open('/mnt/disk2/dataset/trackeveryseason/cam1/annotations/mot_cvat/gt/gt.txt', 'r')
+video = '/home/ubuntu/phd/dataset/trackeveryseason/images/test/cam1_2021-07-06,13_00_05/cam1_2021-07-06,13_00_05.mp4'
+outdir = '/home/ubuntu/phd/dataset/trackeveryseason/images/test/cam1_2021-07-06,13_00_05/error/'
+annoTxt = open('/home/ubuntu/phd/dataset/trackeveryseason/images/test/cam1_2021-07-06,13_00_05/gt/gt.txt', 'r')
+
+centernet_deepsort = open('/home/ubuntu/phd/experiments/inference/tracker/centernet_dla34_640x384_deepsort_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05.txt')
+centertrack = open('/home/ubuntu/phd/experiments/inference/tracker/centertrack_dla34_640x384_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05/cam1_2021-07-06,13_00_05.txt')
+fairmot = open('/home/ubuntu/phd/experiments/inference/tracker/fairmot_dla34_1088x608_ch_mot17_trackeveryseason/cam1/cam1_2021-07-06,13_00_05-results.txt')
+yolo_deepsort = open('/home/ubuntu/phd/experiments/inference/tracker/yolov5_deep_sort_640x384_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05.txt')
 
 lines = annoTxt.readlines()
 totalLine = len(lines)
@@ -27,20 +32,22 @@ print(trac_dict["1"]["centers"])
 print(trac_dict["1"]["centers"][8])
 """
 
+split_mark = ','
+
 for i in range(1, total_frames + 1):
     ret, frame = cap.read()
     if not ret:
         break
-    while int(lines[bbox].split(',')[0]) == i:
-        id_ = int(lines[bbox].split(',')[1])
-        x1 = float(lines[bbox].split(',')[2])
-        y1 = float(lines[bbox].split(',')[3])
-        x2 = float(lines[bbox].split(',')[4])
-        y2 = float(lines[bbox].split(',')[5])
+    while int(lines[bbox].split(split_mark)[0]) == i:
+        id_ = int(lines[bbox].split(split_mark)[1])
+        x1 = float(lines[bbox].split(split_mark)[2])
+        y1 = float(lines[bbox].split(split_mark)[3])
+        x2 = float(lines[bbox].split(split_mark)[4])
+        y2 = float(lines[bbox].split(split_mark)[5])
         if int(x1) < 0:
-            x1 = '0'
+            x1 = 0
         if int(x1) < 0:
-            x1 = '0'
+            x1 = 0
 
         cx = x1 + x2 / 2
         cy = y1 + y2 / 2
@@ -79,7 +86,7 @@ for i in range(1, total_frames + 1):
         bbox += 1
         if bbox == totalLine:
             break
-    # cv2.imwrite(outdir+'img{}.jpg'.format(i), frame)
+    cv2.imwrite(outdir+'img{}.jpg'.format(i), frame)
     print("frame number: {}".format(i))
-    cv2.imshow('Amanda', frame)
+    cv2.imshow('YouTrackOnlyOnce', frame)
     cv2.waitKey(1)
