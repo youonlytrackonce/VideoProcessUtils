@@ -63,14 +63,19 @@ def convert_coco_json_to_yolo_txt(output_path, json_file):
             category_name = category["name"]
             f.write(f"{category_name}\n")
 
-    for image in tqdm(json_data["images"], desc="Annotation txt for each iamge"):
+    for image in tqdm(json_data["images"], desc="Annotation txt for each image"):
         img_id = image["id"]
         img_name = image["file_name"]
         img_width = image["width"]
         img_height = image["height"]
-
         anno_in_image = [anno for anno in json_data["annotations"] if anno["image_id"] == img_id]
         anno_txt = os.path.join(output_path, img_name.split(".")[0] + ".txt")
+        txt_path = img_name.split(".")[0]
+        txt_path_len = len(txt_path)
+        txt_path = txt_path[0:txt_path_len-7]
+        txt_path = os.path.join(output_path, txt_path)
+        if not os.path.exists(txt_path):
+            os.makedirs(txt_path)
         with open(anno_txt, "w") as f:
             for anno in anno_in_image:
                 category = anno["category_id"]
@@ -81,4 +86,4 @@ def convert_coco_json_to_yolo_txt(output_path, json_file):
     print("Converting COCO Json to YOLO txt finished!")
     
 
-convert_coco_json_to_yolo_txt('/home/fatih/disk1/trackeveryseason/images/train','/home/fatih/disk1/trackeveryseason/images/annotations/train.json')
+convert_coco_json_to_yolo_txt('/mnt/disk1/FairMOT_datasets/trackeveryseason/images/yolo/test','/mnt/disk1/FairMOT_datasets/trackeveryseason/images/annotations/test.json')
