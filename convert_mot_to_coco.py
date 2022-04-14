@@ -5,8 +5,9 @@ import cv2
 
 
 # Use the same script for MOT16
-DATA_PATH = '/mnt/disk1/FairMOT_datasets/trackeveryseason/images'
-OUT_PATH = os.path.join(DATA_PATH, 'annotations')
+ROOT_PATH = '/mnt/disk1/FairMOT_datasets/trackeveryseason/'
+DATA_PATH = ROOT_PATH + 'images'
+OUT_PATH = os.path.join(ROOT_PATH, 'annotations')
 SPLITS = ['train', 'test']  # --> split training data to train_half and val_half.
 HALF_VIDEO = False
 CREATE_SPLITTED_ANN = False

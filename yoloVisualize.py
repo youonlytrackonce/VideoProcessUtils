@@ -1,4 +1,3 @@
-import pafy
 import cv2
 import time
 import os
@@ -8,13 +7,14 @@ import shutil
 import numpy as np
 
 
-root = '/home/ubuntu/phd/darknet-crowdhuman/crowdhuman_val/'
-frm = '282555,eaac5000c78ad1c1'
-img = cv2.imread(root + frm +'.jpg')
+root_img = '/mnt/disk1/trackeveryseason/images/train/cam2_2021-02-23,04_00_40/img1/'
+root_txt = '/mnt/disk1/trackeveryseason/annotations/train/cam2_2021-02-23,04_00_40/img1/'
+frm = '000001'
+img = cv2.imread(root_img + frm +'.jpg')
 width, height = img.shape[1], img.shape[0]
 colors = [tuple(map(int, color)) for color in np.random.randint(120, 250, (1000, 3))]
 
-with open(root + frm +'.txt') as f:
+with open(root_txt + frm +'.txt') as f:
     lines = f.readlines()
 
     for line in lines:
