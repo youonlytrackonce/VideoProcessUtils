@@ -10,11 +10,12 @@ import matplotlib.pyplot as plt
 
 somot = '/mnt/disk1/trackeveryseason'  # train test
 mot17 = '/mnt/disk1/FairMOT_datasets/MOT17/images'  # train
+mot20 = '/mnt/disk1/FairMOT_datasets/MOT20/images'
 # split = ['test', 'train']
 
-root = [somot, mot17]
+root = [somot, mot17, mot20]
 
-histOcc = np.zeros((2, 100), dtype=int)  # w/h
+histOcc = np.zeros((3, 100), dtype=int)  # occ
 histOcc_x = [i for i in range(0, 100)]
 
 
@@ -50,11 +51,14 @@ occ = 0
 for ro in root:
     seqs = os.listdir(os.path.join(ro, 'train'))
     for seq in seqs:
-        if (seq.find('DPM') != -1 and ro == mot17) or ro == somot:
+        if (seq.find('DPM') != -1 and ro == mot17) or ro == somot or ro == mot20:
             gt = os.path.join(ro, 'train', seq, 'gt', 'gt.txt')
             with open(gt) as fp:
                 Lines = fp.readlines()
-                Lines.sort(key=my_sort)
+                try:
+                    Lines.sort(key=my_sort)
+                except:
+                    print(ro, seq)
                 frm_pre = '1'
                 lineSetA = []
                 lineSetB = []
@@ -97,8 +101,11 @@ for ro in root:
                                             occlusionA = int((interArea/aArea)*100)
                                             if ro == somot:
                                                 histOcc[0, occlusionA] += 1
-                                            else:
+                                            elif ro == mot17:
                                                 histOcc[1, occlusionA] += 1
+                                            else:
+                                                histOcc[2, occlusionA] += 1
+
                         lineSetA = [line]
                         lineSetB = [line]
                         frm_pre = frm
@@ -107,13 +114,16 @@ for ro in root:
             continue
 
 fig = plt.subplots(figsize=(12, 8))
-plt.bar(histOcc_x[:], histOcc[0, :], color='g', width=1, label='SOMOT')
-plt.bar(histOcc_x[:], histOcc[1, :], color='b', width=1, label='MOT17')
+plt.bar(histOcc_x[:], histOcc[2, :], color='r', width=1, label='MOT20', alpha=0.4)
+plt.bar(histOcc_x[:], histOcc[0, :], color='g', width=1, label='SOMOT', alpha=0.8)
+plt.bar(histOcc_x[:], histOcc[1, :], color='b', width=1, label='MOT17', alpha=0.6)
+
+
 plt.ylabel('Frequencies', size=18)
 plt.xlabel('Occlusion Percent (%)', size=18)
 plt.title('Pedestrian Occlusion Frequencies', size=20)
 plt.legend()
 plt.grid()
-plt.savefig('histOfOcc.jpg')
+plt.savefig('histOfOcc_.jpg')
 plt.show()
 plt.close()
