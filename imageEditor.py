@@ -9,7 +9,7 @@ from operator import itemgetter
 
 import matplotlib.pyplot as plt
 import requests
-from cairosvg import svg2png
+#from cairosvg import svg2png
 
 def rect_with_rounded_corners(image, r, t, c):
     """
@@ -59,9 +59,9 @@ def rect_with_rounded_corners(image, r, t, c):
     return new_image
 
 
-"""
-images_dir = '/mnt/disk1/trackeveryseason/album/'
-fig, axes = plt.subplots(nrows=1, ncols=8,figsize=(19.2, 10.8))
+
+images_dir = '/home/fatih/mnt/trackeveryseason/album/'
+fig, axes = plt.subplots(nrows=2, ncols=4,figsize=(19.2, 10.8))
 seqs = os.listdir(images_dir)
 for ix, seq in enumerate(seqs):
     img = os.listdir(images_dir + seq)
@@ -69,14 +69,19 @@ for ix, seq in enumerate(seqs):
     # cv2.imshow('{}'.format(seq), new_img)
     new_img = rect_with_rounded_corners(new_img, 100, 20, (255, 255, 255))
     new_img = cv2.cvtColor(new_img, cv2.COLOR_BGR2RGB)
-    axes[ix].imshow(new_img)
-    axes[ix].axis('off')
-plt.subplots_adjust(left=0.1,
-                    bottom=0.1,
-                    right=0.9,
-                    top=0.9,
-                    wspace=0.02,
-                    hspace=0.1)
+    row = ix / 4
+    col = ix % 4
+    axes[int(row),col].imshow(new_img)
+    axes[int(row),col].axis('off')
+"""
+plt.subplots_adjust(left=0,
+                    bottom=0,
+                    right=1,
+                    top=1,
+                    wspace=0,
+                    hspace=0)
+"""
+fig.tight_layout(h_pad=-100, w_pad = 0)
 plt.savefig('album.png', dpi=100)
 fig.show()
 plt.axis('off')
@@ -84,4 +89,5 @@ plt.axis('off')
 new_img = cv2.imread('album.png')
 crop_img = new_img[480:600, 190:1730]
 cv2.imwrite('album_crop.png', crop_img)
+"""
 
