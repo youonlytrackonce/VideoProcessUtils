@@ -113,17 +113,16 @@ for ro in root:
         else:
             continue
 
-fig = plt.subplots(figsize=(12, 8))
+fig = plt.subplots(figsize=(10, 6))
 plt.bar(histOcc_x[:], histOcc[2, :], color='r', width=1, label='MOT20', alpha=0.4)
 plt.bar(histOcc_x[:], histOcc[0, :], color='g', width=1, label='SOMOT', alpha=0.8)
 plt.bar(histOcc_x[:], histOcc[1, :], color='b', width=1, label='MOT17', alpha=0.6)
 
 
-plt.ylabel('Frequencies', size=18)
-plt.xlabel('Occlusion Percent (%)', size=18)
-plt.title('Pedestrian Occlusion Frequencies', size=20)
-plt.legend()
+plt.ylabel('Distribution', size=25)
+plt.xlabel('Occlusion Percent (%)', size=25)
+plt.title('Pedestrian Occlusion Distribution', size=25)
 plt.grid()
-plt.savefig('histOfOcc_.jpg')
+plt.savefig('histOfOcc.jpg')
 plt.show()
 plt.close()
