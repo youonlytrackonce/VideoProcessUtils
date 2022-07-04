@@ -114,9 +114,12 @@ for ro in root:
             continue
 
 fig = plt.subplots(figsize=(10, 6))
-plt.bar(histOcc_x[:], histOcc[2, :], color='r', width=1, label='MOT20', alpha=0.4)
-plt.bar(histOcc_x[:], histOcc[0, :], color='g', width=1, label='SOMOT', alpha=0.8)
-plt.bar(histOcc_x[:], histOcc[1, :], color='b', width=1, label='MOT17', alpha=0.6)
+MOT20 = sum(histOcc[2, :15000])
+SOMPT22 = sum(histOcc[0, :15000])
+MOT17 = sum(histOcc[1, :15000])
+plt.bar(histOcc_x[:], histOcc[0, :]/SOMPT22, color='g', width=1, label='SOMOT', alpha=0.8)
+plt.bar(histOcc_x[:], histOcc[2, :]/MOT20, color='r', width=1, label='MOT20', alpha=0.4)
+plt.bar(histOcc_x[:], histOcc[1, :]/MOT17, color='b', width=1, label='MOT17', alpha=0.6)
 
 
 plt.ylabel('Distribution', size=25)

@@ -82,9 +82,12 @@ for ro in root:
 
 
 fig = plt.subplots(figsize=(10, 6))
-plt.bar(histAR_x[:15000], histAR[2, :15000], color='r', width=0.03, label='MOT20', alpha=0.4)
-plt.bar(histAR_x[:15000], histAR[0, :15000], color='g', width=0.03, label='SOMOT22', alpha=0.6)
-plt.bar(histAR_x[:15000], histAR[1, :15000], color='b', width=0.03, label='MOT17', alpha=0.8)
+MOT20 = sum(histAR[2, :15000])
+SOMPT22 = sum(histAR[0, :15000])
+MOT17 = sum(histAR[1, :15000])
+plt.bar(histAR_x[:15000], histAR[2, :15000]/MOT20, color='r', width=0.03, label='MOT20', alpha=0.4)
+plt.bar(histAR_x[:15000], histAR[1, :15000]/MOT17, color='b', width=0.03, label='MOT17', alpha=0.8)
+plt.bar(histAR_x[:15000], histAR[0, :15000]/SOMPT22, color='g', width=0.03, label='SOMPT22', alpha=0.6)
 
 plt.ylabel('Distribution', size=25)
 plt.xlabel('Aspect Ratio (w/h)', size=25)
@@ -97,9 +100,12 @@ plt.close()
 
 
 fig = plt.subplots(figsize=(10, 6))
-plt.bar(histH_x[:400], histHeight[2, :400], color='r', width=8, label='MOT20', alpha=0.4)
-plt.bar(histH_x[:400], histHeight[0, :400], color='g', width=8, label='SOMPT22', alpha=0.6)
-plt.bar(histH_x[:400], histHeight[1, :400], color='b', width=8, label='MOT17', alpha=0.8)
+MOT20 = sum(histHeight[2, :15000])
+SOMPT22 = sum(histHeight[0, :15000])
+MOT17 = sum(histHeight[1, :15000])
+plt.bar(histH_x[:400], histHeight[2, :400]/MOT20, color='r', width=8, label='MOT20', alpha=0.4)
+plt.bar(histH_x[:400], histHeight[1, :400]/MOT17, color='b', width=8, label='MOT17', alpha=0.8)
+plt.bar(histH_x[:400], histHeight[0, :400]/SOMPT22, color='g', width=8, label='SOMPT22', alpha=0.6)
 
 plt.ylabel('Distribution', size=25)
 plt.xlabel('Object Height (px)', size=25)
@@ -114,9 +120,12 @@ plt.close()
 
 
 fig = plt.subplots(figsize=(10, 6))
-plt.bar(histD_x[:250], histDensity[2, :250], color='r', width=1.3, label='MOT20', alpha=0.4)
-plt.bar(histD_x[:250], histDensity[0, :250], color='g', width=1.3, label='SOMOT22', alpha=0.6)
-plt.bar(histD_x[:250], histDensity[1, :250], color='b', width=1.3, label='MOT17', alpha=0.8)
+MOT20 = sum(histDensity[2, :15000])
+SOMPT22 = sum(histDensity[0, :15000])
+MOT17 = sum(histDensity[1, :15000])
+plt.bar(histD_x[:250], histDensity[2, :250]/MOT20, color='r', width=1.3, label='MOT20', alpha=0.4)
+plt.bar(histD_x[:250], histDensity[1, :250]/MOT17, color='b', width=1.3, label='MOT17', alpha=0.8)
+plt.bar(histD_x[:250], histDensity[0, :250]/SOMPT22, color='g', width=1.3, label='SOMPT22', alpha=0.6)
 
 plt.ylabel('Distribution', size=25)
 plt.xlabel('Object per Frame', size=25)
