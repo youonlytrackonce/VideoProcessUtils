@@ -6,14 +6,16 @@ from datetime import datetime
 import shutil
 import numpy as np
 
-video = '/home/ubuntu/phd/dataset/trackeveryseason/images/test/cam1_2021-07-06,13_00_05/cam1_2021-07-06,13_00_05.mp4'
+video = '/home/ubuntu/phd/sompt22/train/SOMPT22-12/SOMPT22-12.mp4'
 outdir = '/home/ubuntu/phd/dataset/trackeveryseason/images/test/cam1_2021-07-06,13_00_05/error/'
-annoTxt = open('/home/ubuntu/phd/dataset/trackeveryseason/images/test/cam1_2021-07-06,13_00_05/gt/gt.txt', 'r')
+annoTxt = open('/home/ubuntu/phd/sompt22blur/train/SOMPT22-12/det/det.txt', 'r')
 
+"""
 centernet_deepsort = open('/home/ubuntu/phd/experiments/inference/tracker/centernet_dla34_640x384_deepsort_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05.txt')
 centertrack = open('/home/ubuntu/phd/experiments/inference/tracker/centertrack_dla34_640x384_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05/cam1_2021-07-06,13_00_05.txt')
 fairmot = open('/home/ubuntu/phd/experiments/inference/tracker/fairmot_dla34_1088x608_ch_mot17_trackeveryseason/cam1/cam1_2021-07-06,13_00_05-results.txt')
 yolo_deepsort = open('/home/ubuntu/phd/experiments/inference/tracker/yolov5_deep_sort_640x384_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05.txt')
+"""
 
 lines = annoTxt.readlines()
 totalLine = len(lines)
@@ -86,7 +88,7 @@ for i in range(1, total_frames + 1):
         bbox += 1
         if bbox == totalLine:
             break
-    cv2.imwrite(outdir+'img{}.jpg'.format(i), frame)
+    #cv2.imwrite(outdir+'img{}.jpg'.format(i), frame)
     print("frame number: {}".format(i))
     cv2.imshow('YouTrackOnlyOnce', frame)
     cv2.waitKey(1)
