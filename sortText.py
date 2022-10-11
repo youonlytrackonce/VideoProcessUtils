@@ -10,16 +10,26 @@ root_dir = '/home/ubuntu/phd/sompt22blur/'
 
 splits = ['test', 'train']
 
+
+def my_sort(linex):
+    line_fields = linex.strip().split(',')
+    amount = float(line_fields[0])
+    return amount
+
+
+text = 'det'  # or gt
+
 for split in splits:
     data_path = os.path.join(root_dir, split)
     seq_names = [s for s in sorted(os.listdir(data_path))]
     for seq in seq_names:
-        anno_path = os.path.join(root_dir, split, seq, 'gt') + '/gt.txt'
+        anno_path = os.path.join(root_dir, split, seq, text) + '/{}.txt'.format(text)
         img_path = os.path.join(root_dir, split, seq, 'img1') + '/000001.jpg'
         img = cv2.imread(img_path)
         height, width, c = img.shape
         with open(anno_path, 'r') as fp:
             Lines = fp.readlines()
+            Lines.sort(key=my_sort)
         new_Lines = []
         for line in Lines:
             anno_str = line.split(',')
@@ -51,4 +61,3 @@ for split in splits:
             new_Lines.append(new_line)
         with open(anno_path, 'w') as fp:
             fp.writelines(new_Lines)
-

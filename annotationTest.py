@@ -7,9 +7,9 @@ from datetime import datetime
 import shutil
 import numpy as np
 
-video = '/mnt/disk2/dataset/mot_anno/set0/cam1/raw_video/cam1_2021-07-06,13_00_05.mp4'
-outdir = '/mnt/disk2/dataset/mot_anno/set0/cam1/raw_video/test/'
-annoTxt = open('/home/fatih/phd/experiments/centernet_dla34_640x384_deepsort_crowdhuman_trackeveryseason/cam1_2021-07-06,13_00_05.txt', 'r')
+video = '/home/ubuntu/phd/sompt22/test/SOMPT22-01/SOMPT22-01.mp4'
+outdir = '/home/ubuntu/Videos/test/'
+annoTxt = open('/home/ubuntu/phd/sompt22blur/test/SOMPT22-01/det/det.txt', 'r')
 
 lines = annoTxt.readlines()
 totalLine = len(lines)
