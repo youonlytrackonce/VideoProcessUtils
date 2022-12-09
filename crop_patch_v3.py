@@ -11,11 +11,11 @@ import matplotlib.pyplot as plt
 sompt22 = '/mnt/disk2/golden_phd/mydataset/sompt22'
 mot17 = '/mnt/disk2/golden_phd/datasets/fairmot_dataset/MOT17/images'
 mot20 = '/mnt/disk2/golden_phd/datasets/fairmot_dataset/MOT20/images'  # train test
-out_patch = '/mnt/disk2/golden_phd/experiments/dataset/crop/sompt22'
+out_patch = '/mnt/disk2/golden_phd/experiments/dataset/crop/mot17'
 # split = ['test', 'train']
-split = 'test'
+split = 'train'
 
-root = [sompt22]
+root = [mot17]
 
 def my_sort(linex):
     line_fields = linex.strip().split(',')
@@ -25,6 +25,8 @@ def my_sort(linex):
 for ro in root:
     seqs = os.listdir(os.path.join(ro, split))
     for seq in seqs:
+        if 'DPM' in seq or 'SDP' in seq:
+            continue
         print(seq)
         gt = os.path.join(ro, split, seq, 'gt', 'gt.txt')
         with open(gt) as fp:
