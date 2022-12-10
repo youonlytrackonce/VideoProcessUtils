@@ -47,18 +47,42 @@ for ro in root:
                 #print(frm)
                 os.makedirs(os.path.join(out_patch, split, seq, str(id)), exist_ok=True)
                 if frm_pre != frm:
+                    height, width, channels = img1.shape
+                    if x < 0:
+                        x = 0
+                    if x > width:
+                        x = width
+                    if y < 0:
+                        y = 0
+                    if y > height:
+                        y = height                   
                     crop_img = img1[y:y + h, x:x + w]
                     cv2.imwrite(os.path.join(out_patch, split, seq, str(id), str(f'{frm_pre:06}') + '.jpg'), crop_img)
                     frm_pre += 1
                     img1 = cv2.imread(os.path.join(ro, split, seq, 'img1', str(f'{frm_pre:06}')) + '.jpg')
                     if img1 is None:
-                        continue
-                else:
-                    if h < 5 or w < 5:
-                        continue
-                    elif img1 is None:
-                        continue
+                        frm_pre += 1
                     else:
+                        height, width, channels = img1.shape
+                        if h < 5 or w < 5 or height < 0 or width < 0:
+                            frm_pre += 1
+                else:
+                    if img1 is None:
+                        frm_pre += 1    
+                    else:
+                        height, width, channels = img1.shape
+                        if h < 5 or w < 5 or height < 0 or width < 0:
+                            frm_pre += 1
+                            continue
+                        if x < 0:
+                            x = 0
+                        if x + w > width:
+                            continue
+                        if y < 0:
+                            y = 0
+                        if y + h > height:
+                            continue 
                         crop_img = img1[y:y + h, x:x + w]
+                        #print(str(width) + "x" + str(height))
                         cv2.imwrite(os.path.join(out_patch, split, seq, str(id), str(f'{frm_pre:06}') + '.jpg'), crop_img)
                 # print(frm_pre)
